@@ -6,6 +6,11 @@ import CurrencyConverter from '@/components/CurrencyConverter';
 import { Calendar, MapPin, Plane, Hotel, MessageSquare, Info, Train, ShoppingBag, Utensils } from 'lucide-react';
 import Image from 'next/image';
 
+import Link from 'next/link';
+
+// 強制動態渲染，確保在 Zeabur/Vercel 等平台部署時能即時讀取環境變數
+export const dynamic = 'force-dynamic';
+
 const CategoryIcon = ({ category }: { category: string }) => {
   switch (category) {
     case 'transport': return <Train className="w-5 h-5" />;
