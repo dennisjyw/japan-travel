@@ -30,8 +30,8 @@ export async function getTripData() {
         throw new Error('Missing Notion API Key or Database ID');
     }
 
-    // 使用正確的 databases.query() 方法
-    const response = await (notion.databases.query as any)({
+    // 使用 Notion SDK 的 query 方法
+    const response = await notion.databases.query({
         database_id: databaseId,
     });
 
