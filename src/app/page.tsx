@@ -23,17 +23,33 @@ const CategoryIcon = ({ category }: { category: string }) => {
 };
 
 export default async function Home() {
-  let tripData;
-  let isConfigured = true;
+  // 1. 先明確檢查環境變數
+  const apiKey = process.env.NOTION_API_KEY;
+  const dbId = process.env.NOTION_DATABASE_ID;
 
-  try {
-    tripData = await getTripData();
-  } catch (error) {
-    isConfigured = false;
+  if (!apiKey || !dbId) {
+    console.log("Missing Environment Variables");
+    return <SetupGuide />;
   }
 
-  if (!isConfigured || !tripData) {
-    return <SetupGuide />;
+  let tripData;
+  try {
+    tripData = await getTripData();
+  } catch (error: any) {
+    // 2. 如果 Catch 到錯誤，顯示錯誤訊息而非 SetupGuide
+    console.error("Notion API Error:", error);
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-red-50 text-red-900">
+        <h1 className="text-2xl font-bold mb-4">系統發生錯誤</h1>
+        <p className="mb-2">雖然偵測到環境變數，但在讀取 Notion 資料時發生問題。</p>
+        <div className="bg-white p-4 rounded-lg shadow border border-red-200 w-full max-w-lg overflow-auto">
+          <p className="font-mono text-sm whitespace-pre-wrap text-red-600">
+            {error.message || JSON.stringify(error)}
+          </p>
+        </div>
+        <p className="mt-4 text-sm text-gray-600">請檢查您的 API Key 權限或 Database ID 是否正確。</p>
+      </div>
+    );
   }
 
   const { metadata, itinerary } = tripData;

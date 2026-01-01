@@ -1,11 +1,5 @@
 import { Client } from '@notionhq/client';
 
-const notion = new Client({
-    auth: process.env.NOTION_API_KEY,
-});
-
-const databaseId = process.env.NOTION_DATABASE_ID;
-
 export interface TripMetadata {
     title: string;
     city: string;
@@ -26,9 +20,16 @@ export interface ItineraryItem {
 }
 
 export async function getTripData() {
-    if (!process.env.NOTION_API_KEY || !databaseId) {
-        throw new Error('Missing Notion API Key or Database ID');
+    const apiKey = process.env.NOTION_API_KEY;
+    const databaseId = process.env.NOTION_DATABASE_ID;
+
+    if (!apiKey || !databaseId) {
+        throw new Error(`Missing Notion credentials. API Key: ${apiKey ? 'set' : 'missing'}, DB ID: ${databaseId ? 'set' : 'missing'}`);
     }
+
+    const notion = new Client({
+        auth: apiKey,
+    });
 
     // 使用最新的 Notion API (v2025-09-03) 語法: dataSources.query
     // 注意: database_id 參數已變更為 data_source_id
