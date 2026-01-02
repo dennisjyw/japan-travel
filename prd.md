@@ -62,11 +62,11 @@
     - 在 Database `config` 增加 `password` 設定網站存取密碼 (4位數)。
     - 雖是靜態網站渲染，但在進入主頁面 (**Root Layout**) 前需通過 **Server Action** 驗證。
     - **驗證流程**:
-        1. 使用者開啟網站，若無有效 Cookie，顯示全螢幕密碼輸入框 (**PasswordProtection**)，此時網頁原始碼不包含任何行程資料。
+        1. 使用者開啟網站，若無有效 Cookie，顯示全螢幕密碼輸入框 (**PasswordProtection**)。
         2. 輸入密碼後，透過 Server Action 比對 Notion Config 中的密碼。
-        3. 驗證成功寫入 `httpOnly` Cookie (`journey_auth`)，有效期 7 天。
+        3. 驗證成功寫入 `httpOnly` Cookie (`journey_auth`)，有效期 7 天，並設定 `SameSite=Lax` 以確保體驗流暢。
         4. 驗證通過後，Layout 才會渲染 `children` (行程內容)，確保資料隱私。
-    - **登出/過期**: Cookie 到期或清除後，需重新輸入密碼。
+    - **登出/過期**: Cookie 到期 (7天) 或手動清除後，需重新輸入密碼。重整頁面 (F5) 不會導致登出。
 
 ## 3. Notion Database 欄位架構 (Schema)
 1.  **title**: 標題 (Title)

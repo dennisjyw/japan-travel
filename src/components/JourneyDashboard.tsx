@@ -36,6 +36,10 @@ const toFloatingDate = (dateStr: string): Date => {
 
 export default function JourneyDashboard({ data, requiredPassword }: JourneyDashboardProps) {
     const { metadata, itinerary } = data;
+
+    const [activeTab, setActiveTab] = useState<TabType>('home');
+    const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({});
+
     // Current time for "Now" logic
     // In a real app, you might want this to update every minute, but for now fixed on mount is fine
     const [now, setNow] = useState<Date | null>(null);
