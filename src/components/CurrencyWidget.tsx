@@ -76,7 +76,12 @@ export const CurrencyWidget: React.FC<CurrencyWidgetProps> = ({ rate: initialRat
                                 }
                             }}
                             placeholder="1,000"
-                            className="w-full bg-transparent border-none text-2xl font-bold placeholder-slate-700 text-white focus:outline-none p-0 tracking-tight font-mono"
+                            className={cn(
+                                "w-full bg-transparent border-none font-bold placeholder-slate-700 text-white focus:outline-none p-0 tracking-tight font-mono transition-all duration-200",
+                                (amount?.length || 0) >= 8 ? "text-lg" :
+                                    (amount?.length || 0) >= 6 ? "text-xl" :
+                                        "text-2xl"
+                            )}
                         />
                     </div>
                 </div>
@@ -86,7 +91,12 @@ export const CurrencyWidget: React.FC<CurrencyWidgetProps> = ({ rate: initialRat
                 <div className="flex-1 min-w-0 text-right">
                     <div className="flex items-baseline justify-end gap-0.5">
                         <span className="text-xs font-medium text-slate-500">NT$</span>
-                        <span className="text-2xl font-bold text-emerald-400 tracking-tight truncate font-mono">
+                        <span className={cn(
+                            "font-bold text-emerald-400 tracking-tight truncate font-mono transition-all duration-200",
+                            calculated.length >= 8 ? "text-lg" :
+                                calculated.length >= 6 ? "text-xl" :
+                                    "text-2xl"
+                        )}>
                             {calculated}
                         </span>
                     </div>

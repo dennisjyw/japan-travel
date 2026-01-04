@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
             description: "基於 Notion 的動態旅遊看板渲染器",
             appleWebApp: {
                 capable: true,
-                statusBarStyle: "default",
+                statusBarStyle: "black-translucent",
             },
             icons: {
                 icon: "/favicon.png",

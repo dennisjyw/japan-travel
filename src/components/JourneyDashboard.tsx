@@ -17,6 +17,7 @@ import { CurrencyWidget } from './CurrencyWidget';
 import { TimeZoneWidget } from './TimeZoneWidget';
 import { Phone, ShieldAlert } from 'lucide-react';
 import { NotionBlockRenderer } from './NotionBlockRenderer';
+import { PullToRefresh } from './PullToRefresh';
 
 interface JourneyDashboardProps {
     data: {
@@ -39,6 +40,7 @@ export default function JourneyDashboard({ data, requiredPassword }: JourneyDash
 
     const [activeTab, setActiveTab] = useState<TabType>('home');
     const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({});
+    const [isAtTop, setIsAtTop] = useState(true);
 
     // Current time for "Now" logic
     // In a real app, you might want this to update every minute, but for now fixed on mount is fine
@@ -293,12 +295,22 @@ export default function JourneyDashboard({ data, requiredPassword }: JourneyDash
                     }
                 />
 
-                <main className="absolute inset-0 overflow-y-auto pt-20">
-                    {activeTab === 'home' && renderHome()}
-                    {activeTab === 'visit' && renderFiltered('visit_group')}
-                    {activeTab === 'hotel' && renderFiltered('hotel')}
-                    {activeTab === 'transport' && renderFiltered('transport')}
-                    {activeTab === 'info' && renderInfo()}
+                <main
+                    className="absolute inset-0 overflow-y-auto pt-20"
+                    onScroll={(e) => {
+                        const target = e.currentTarget;
+                        setIsAtTop(target.scrollTop <= 0);
+                    }}
+                >
+                    <PullToRefresh isPullable={isAtTop}>
+                        <div className="min-h-full">
+                            {activeTab === 'home' && renderHome()}
+                            {activeTab === 'visit' && renderFiltered('visit_group')}
+                            {activeTab === 'hotel' && renderFiltered('hotel')}
+                            {activeTab === 'transport' && renderFiltered('transport')}
+                            {activeTab === 'info' && renderInfo()}
+                        </div>
+                    </PullToRefresh>
                 </main>
 
                 <BottomNav currentTab={activeTab} onTabChange={setActiveTab} />

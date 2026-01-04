@@ -105,10 +105,12 @@ export const JourneyCard: React.FC<JourneyCardProps> = ({ item, isPast = false, 
                         <div className="flex-1 pb-2">
                             <div className="flex items-start justify-between gap-2">
                                 <div>
-                                    <div className={cn("inline-flex items-center justify-center p-1.5 rounded-lg mb-2 shadow-sm", colorClass)}>
-                                        {renderIcon()}
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <div className={cn("inline-flex items-center justify-center p-1.5 rounded-lg shadow-sm shrink-0", colorClass)}>
+                                            {renderIcon()}
+                                        </div>
+                                        <h3 className="font-bold text-slate-800 text-lg leading-tight">{item.title}</h3>
                                     </div>
-                                    <h3 className="font-bold text-slate-800 text-lg leading-tight mb-1">{item.title}</h3>
                                 </div>
                                 {item.maps && (
                                     <a
