@@ -160,8 +160,8 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 600px;
-  padding-bottom: calc(var(--safe-area-bottom) + 8px);
-  padding-top: 8px;
+  padding-bottom: calc(var(--safe-area-bottom) + 4px);
+  padding-top: 4px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -179,7 +179,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   font-size: 10px;
   color: #8e8e93;
   transition: color 0.2s ease;
