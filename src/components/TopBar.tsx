@@ -45,8 +45,8 @@ export const TopBar: React.FC<TopBarProps> = ({ title, subtitle, gmtOffset = '+8
                 </div>
 
                 {/* Local Time Display */}
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pt-[env(safe-area-inset-top)] flex flex-col items-end opacity-80">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">當地時間</span>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col items-end opacity-80">
+                    <span className="text-[8px] uppercase font-bold text-slate-400 tracking-wider">當地時間</span>
                     <span className="text-sm font-bold text-slate-700 font-mono leading-none">{timeStr}</span>
                 </div>
             </div>
